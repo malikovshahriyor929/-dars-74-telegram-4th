@@ -237,6 +237,7 @@ messages.addEventListener("dblclick", (e) => {
   }
 });
 
+
 //add your contact
 let contactes = document.querySelector(".contactes");
 
@@ -247,6 +248,7 @@ backpage.addEventListener("click", () => {
   contactes.style.display = "none";
 });
 
+//////////////// add member///////////////// 
 let AddContactForm = document.querySelector(".AddContactForm");
 let AddContactInput = document.querySelector("#contactPhoneNum");
 AddContactForm.addEventListener("submit", (e) => {
@@ -285,6 +287,9 @@ AddContactForm.addEventListener("submit", (e) => {
       }
     });
 });
+
+
+////////contact add to ui or html 
 fetch(
   `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`
 )
