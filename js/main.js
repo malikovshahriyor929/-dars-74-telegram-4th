@@ -9,6 +9,7 @@ let messages = document.querySelector(".messages");
 let name = document.querySelector(".name");
 let check = JSON.parse(localStorage.getItem("name"));
 let userid = JSON.parse(localStorage.getItem("userid"));
+let user = JSON.parse(localStorage.getItem("user")) || [];
 let contact = JSON.parse(localStorage.getItem("contact"));
 let clicked_id = JSON.parse(localStorage.getItem("clicked_id")) || 0;
 let yourAvatar = document.querySelector(".yourAvatar");
@@ -255,43 +256,39 @@ AddContactForm.addEventListener("submit", (e) => {
     .then((data) => data.json())
     .then((data) => {
       // contactsfuncForMe(data);
-      contactsfuncForYour(data, AddContactInput.value);
+      // contactsfuncForYour(data, AddContactInput.value);
+      {
+        if (user.phone === AddContactInput.value) {
+          return alert("siz ozizni qoshdingiz");
+        }
+        let findData = data.find(
+          (value) => value.phone === AddContactInput.value
+        );
+        if (!findData) {
+          return alert("bunday nomer yoq");
+        }
+        let newData = { ...user, contact: [...user.contact, findData] };
+        fetch(
+          `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newData),
+          }
+        )
+          .then((data) => data.json())
+          .then((data) => {
+            showContact(data.contact);
+            localStorage.setItem("user", JSON.stringify(data));
+            contactes.style.display = "none";
+          });
+      }
     });
 });
-
-function contactsfuncForYour(data, inputValue) {
-  data.forEach((value) => {
-    if (value.phone == inputValue) {
-      localStorage.setItem("contact", JSON.stringify(value));
-      // fetch(
-      //   `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
-      //   {
-      //     method: "PUT",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       contact: [value,contact],
-      //     }),
-      //   }
-      // )
-      //   .then((data) => data.json())
-      //   .then((res) => console.log(res))
-
-      fetch(
-        `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contact: [value],
-          }),
-        }
-      );
-    }
-  });
-}
 fetch(
   `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`
-).then((data) => data.json())
+)
+  .then((data) => data.json())
   .then((data) => {
     showContact(data.contact);
   });
@@ -316,16 +313,6 @@ function showContact(data) {
   });
 }
 
-// let search = document.querySelector(".search");
-// let search_parent = document.querySelector("#search_parent");
-// search_parent.addEventListener("keyup", (e) => {
-//   fetch(
-//     `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${search.value}`
-//   )
-//     .then((data) => data.json())
-//     .then((data) => console.log(data));
-// });
-// console.log(search.value);
 
 fetchfunc();
 getFetchFunc();

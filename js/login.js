@@ -15,6 +15,7 @@ form.addEventListener("submit", (e) => {
         localStorage.setItem("access", JSON.stringify(value.name));
         localStorage.setItem("name", JSON.stringify(value.name));
         localStorage.setItem("userid", JSON.stringify(value.id));
+        localStorage.setItem("user",JSON.stringify(value))
         window.location.href = "../index.html";
       }
     });
