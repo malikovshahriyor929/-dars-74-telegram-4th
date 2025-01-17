@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telegram web</title>
+    <link rel="icon" href="./assets/svg/telegram.svg" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main class="flex flex-row h-full">
+      <div class="basis-[30%] sticky top-0 bg-white h-[100vh]">
+        <div class="">
+          <!-- menu  -->
+          <div
+            class="bg-[#517da2] p-4 pt-5 pb-0 rounded-b-md flex gap-5 flex-col"
+          >
+            <div class="flex items-center gap-5 justify-between">
+              <label for="check">
+                <img class="h-8" src="./assets/svg/Menu Icon.svg" alt="" />
+              </label>
+              <form
+                id="search_parent"
+                class="flex items-center gap-2 border-2 rounded-full p-2 py-1"
+              >
+                <i class="fa-solid fa-magnifying-glass text-white"></i>
+                <input
+                  class="search text-white outline-none w-28 bg-transparent placeholder-white"
+                  type="text"
+                  placeholder="Search..."
+                />
+              </form>
+            </div>
+            <div class="flex flex-col gap-3 px-3">
+              <p class="text-[20px] text-white font-semibold">All chats</p>
+              <div class="w-16 rounded-t-md bg-white h-2 mx-2.5"></div>
+            </div>
+          </div>
+          <!-- channel -->
+          <div class="">
+            <div class="contacts"></div>
+          </div>
+          <div class="flex flex-col items-center add">
+            <div
+              class="absolute bottom-5 right-5 bg-primary2 flex items-center justify-center p-6 rounded-full"
+            >
+              <i class="fa-solid fa-pen text-[26px] text-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="basis-[70%] bg-[url('/assets/svg/Background.svg')]">
+        <!--  -->
+        <!-- hidden -->
+        <div class="flex flex-col rigth_side">
+          <!-- text header  -->
+          <div
+            class="bg-[#517da2] z-50 sticky top-0 h-[90px] flex justify-between items-center px-4"
+          >
+            <div class="flex items-center gap-3 z-50">
+              <img
+                id="avatar"
+                class="h-14 w-14 rounded-full"
+                src="./assets/img/defualtavatar.png"
+                alt=""
+              />
+              <div>
+                <p class="name font-medium text-[20px] text-white">
+                  loading...
+                </p>
+                <p class="text-[#d2e9fb] online">online</p>
+              </div>
+            </div>
+            <div class="flex gap-2 items-center">
+              <img class="pt-1" src="./assets/svg/search.svg" alt="" />
+              <img src="./assets/svg/Dots Icon.svg" alt="" />
+            </div>
+          </div>
+          <!-- text messages  -->
+          <div class="bg-[url('/assets/svg/Background.svg')] pb-20 h-full">
+            <div class="messages"></div>
+          </div>
+          <!-- text write input  -->
+          <div
+            class="fixed bottom-0 z-50 bg-white py-2 flex items-center w-[70%] justify-between px-4"
+          >
+            <div class="flex items-center z-50 gap-5 w-full">
+              <img class="h-[33px]" src="./assets/svg/Attach Icon.svg" alt="" />
+              <form class="message_form flex items-center gap-3 w-full">
+                <input
+                  class="message_input p-1.5 text-[20px] bg-transparen w-full outline-none"
+                  type="text"
+                  placeholder="Write a message..."
+                />
+              </form>
+            </div>
+            <div class="flex items-center gap-4">
+              <img class="h-[33px]" src="./assets/svg/Emoji Icon.svg" alt="" />
+              <img class="h-[33px]" src="./assets/svg/Voice Icon.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute top-0 left-0 hidden flex-col items-center justify-center h-full w-full bg-[#00000091] contactes">
+        <form class="flex flex-col gap-5 rounded-lg p-10 bg-primary2 relative pt-12 AddContactForm">
+          <label class="absolute top-6 left-4 backpage">
+            <img src="./assets/svg/backtopage.svg" alt="" />
+          </label>
+          <p class="text-white font-medium text-[20px]">Find your contact</p>
+          <input
+            type="text"
+            id="contactPhoneNum"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
+            required=""
+          />
+          <button type="submit" class="w-full text-[20px] text-white bg-primary-600 hover:bg-primary-700 outline-none font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 bg-primary">Add to contact</button>
+        </form>
+      </div>
+
+      <!-- checkbox -->
+      <input class="hidden" id="check" type="checkbox" />
+      <div class="profile">
+        <div class="flex flex-col gap-5 relative">
+          <label class="absolute top-6 left-4" for="check">
+            <img src="./assets/svg/backtopage.svg" alt="" />
+          </label>
+          <div class="flex justify-between items-center bg-primary2">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center avatarDiv gap-5 p-10 py-20">
+                <img
+                  class="h-24 w-h-24 rounded-full yourAvatar"
+                  src=""
+                  alt="salon"
+                />
+                <div class="flex flex-col gap-1">
+                  <p class="text-[26px] text-white username font-medium">
+                    username
+                  </p>
+                  <a
+                    class="text-[20px] font-medium text-white phoneNum"
+                    href="asfd"
+                    >phone</a
+                  >
+                </div>
+              </div>
+              <form
+                class="inputs_for_profile hidden flex-col gap-2 fixed backdrop-blur-[10px] h-full w-full items-center justify-center"
+              >
+                <div
+                  class="m-auto bg-slate-400 flex flex-col gap-2 p-10 rounded-xl relative"
+                >
+                  <img
+                    class="rounded-full h-32 mx-auto"
+                    src="./assets/img/defualtavatar.png"
+                    alt=""
+                  />
+                  <label for="avatarInput" class="flex items-center flex-col">
+                    <i
+                      title="Add your new profile image"
+                      class="fa-solid fa-camera absolute top-[140px] right-[85px] text-[28px] text-white"
+                    ></i>
+                  </label>
+                  <input class="hidden" id="avatarInput" type="file" />
+                  <p class="text-[18px] font-semibold text-white">
+                    Enter your name
+                  </p>
+                  <input
+                    class="bg-transparent border-2 border-white rounded-md p-2 placeholder-white"
+                    id="usernameInput"
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <p class="text-[18px] font-semibold text-white">
+                    Enter your new phone
+                  </p>
+                  <input
+                    class="bg-transparent placeholder-white border-2 border-white rounded-md p-2"
+                    id="phoneNumInput"
+                    type="text"
+                    placeholder="+998"
+                  />
+                  <p class="text-[18px] font-semibold text-white">
+                    Enter your new password
+                  </p>
+                  <input
+                    class="bg-transparent placeholder-white border-2 border-white rounded-md p-2"
+                    id="passwordInput"
+                    type="text"
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="submit"
+                    class="text-white font-medium bg-primary2 rounded-lg px-5 py-2"
+                  >
+                    submit
+                  </button>
+                  <label class="absolute top-6 left-4 back">
+                    <img src="./assets/svg/backtopage.svg" alt="" />
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="p-10">
+              <button
+                class="logout border-2 flex items-center text-primary2 justify-center p-4 rounded-xl bg-white text-[20px] font-semibold pr-5"
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+          <div id="setting" class="bg-white p-10 flex gap-2 setting">
+            <img class="" src="./assets/img/Settings Icon.png" alt="" />
+            <p class="text-[#444] font-medium text-[20px]">Settings</p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

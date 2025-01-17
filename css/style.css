@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+img,
+svg,
+button {
+  cursor: pointer;
+}
+.container2 {
+  margin: 0 auto;
+  width: 95%;
+}
+@media (min-width: 1400px) {
+  .container2 {
+    width: 1350px;
+    margin: 0 auto;
+  }
+}
+.profile {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  gap: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* padding: 30px;
+    padding-top:70px; */
+  /* justify-content: center; */
+  transition: 0.5s;
+  z-index: 999 !important;
+}
+#check:checked ~ .profile {
+  left: 0;
+}
