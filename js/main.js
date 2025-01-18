@@ -64,6 +64,38 @@ contacts.addEventListener("click", (e) => {
   }
 });
 
+// contact delete
+contacts.addEventListener("dblclick", (e) => {
+  localStorage.setItem("clicked_id", JSON.stringify(e.target.id));
+  if (e.target.classList.contains("con") && clicked_id == e.target.id) {
+    fetch(`https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api`)
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.filter((value) => value.id === userid)) {
+          let findData = data.find((value) => value.contact.id != clicked_id);
+          let newdata = { ...user, contact: [ findData ] };
+          console.log(findData);
+          fetch(
+            `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newdata),
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+           
+              localStorage.setItem("user", JSON.stringify(data));
+            });
+        }
+      });
+
+   
+
+  } 
+});
+
 // typing
 message_input.addEventListener("keyup", (e) => {
   e.preventDefault();
@@ -248,7 +280,7 @@ backpage.addEventListener("click", () => {
   contactes.style.display = "none";
 });
 
-//////////////// add member///////////////// 
+//////////////// add member/////////////////
 let AddContactForm = document.querySelector(".AddContactForm");
 let AddContactInput = document.querySelector("#contactPhoneNum");
 AddContactForm.addEventListener("submit", (e) => {
@@ -289,7 +321,7 @@ AddContactForm.addEventListener("submit", (e) => {
 });
 
 
-////////contact add to ui or html 
+////////contact add to ui or html
 fetch(
   `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`
 )
@@ -298,6 +330,7 @@ fetch(
     showContact(data.contact);
   });
 function showContact(data) {
+//  if (data != []) {
   data.forEach((value) => {
     let contact = document.createElement("div");
     contact.classList.add("con");
@@ -316,8 +349,45 @@ function showContact(data) {
             `;
     contacts.append(contact);
   });
+//  }
 }
 
+let search_parent = document.querySelector("#search_parent");
+search_parent.addEventListener("keyup", (e) => {
+  e.preventDefault();
+  let searchInput = search_parent.search.value;
+
+  fetch("https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api")
+    .then((data) => data.json())
+    .then((data) => {
+      // data.forEach((value) => {
+      //   value.name.includes(searchInput);
+      // });
+      contacts.innerHTML = "";
+      data.forEach((value) => {
+        if (value.name.includes(searchInput)) {
+          let contact = document.createElement("div");
+          contact.classList.add("con");
+          contact.innerHTML = `
+            <div id=${value?.id} class="con select-none flex gap-3 p-3 border-b ">
+        <img class=" h-14 w-14 rounded-full con " src="${value?.img}" alt="" />
+          <div class="flex con flex-col justify-between">
+            <p class="flex items-center con gap-3 font-medium  text-[#222]">${value?.name}
+              <img class="con" src="./assets/svg/worth_thing_in_telegram.svg" alt="" />
+            </p>
+            <p  class="text-[15px] con text-[#8d8e90]">
+            Sended message
+            </p>
+          </div>
+      </div>
+          `;
+          contacts.append(contact);
+        } else {
+          window.location.reload();
+        }
+      });
+    });
+});
 
 fetchfunc();
 getFetchFunc();
