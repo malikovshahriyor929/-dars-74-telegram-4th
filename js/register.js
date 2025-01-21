@@ -39,4 +39,11 @@ function postUsers(imgUrl, name, phone, password) {
   })
     .then((data) => data.json())
     .then((data) => (window.location.href = "./login.html"));
+  fetch("https://678944a52c874e66b7d8381f.mockapi.io/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      imgs: [imgUrl],
+    }),
+  });
 }

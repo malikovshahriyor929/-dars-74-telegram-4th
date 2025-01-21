@@ -23,7 +23,8 @@ let online = document.querySelector(".online");
 let message_input = document.querySelector(".message_input");
 let setting = document.querySelector(".setting");
 let inputs_for_profile = document.querySelector(".inputs_for_profile");
-
+let AddContactForm = document.querySelector(".AddContactForm");
+let AddContactInput = document.querySelector("#contactPhoneNum");
 // time
 let date = new Date();
 let hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
@@ -73,8 +74,8 @@ contacts.addEventListener("dblclick", (e) => {
       .then((data) => {
         if (data.filter((value) => value.id === userid)) {
           let findData = data.find((value) => value.contact.id != clicked_id);
-          let newdata = { ...user, contact: [ findData ] };
-          console.log(findData);
+          let newdata = { ...user, contact: [findData] };
+
           fetch(
             `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
             {
@@ -85,15 +86,11 @@ contacts.addEventListener("dblclick", (e) => {
           )
             .then((data) => data.json())
             .then((data) => {
-           
               localStorage.setItem("user", JSON.stringify(data));
             });
         }
       });
-
-   
-
-  } 
+  }
 });
 
 // typing
@@ -136,16 +133,18 @@ function fetchfunc() {
 }
 // put messages
 function checkfunc(data) {
+  messages.innerHTML = "";
   data.forEach((value) => {
     if (value.userid == userid && value.resive == clicked_id) {
       let text = document.createElement("div");
       text.classList.add("deleteclass");
+      text.classList.add(`${value.id}`);
       text.innerHTML = `
-      <div  class="flex items-end  flex-col">
+      <div  class="flex items-end ${value.id} flex-col">
               <div
-                class="bg-[#effedd] relative flex flex-col items-end w-fit p-[9px_15px_0_15px] pb-5 m-3 rounded-md rounded-br-none min-w-[70px] "
+                class="bg-[#effedd] ${value.id} relative flex flex-col items-end w-fit p-[9px_15px_0_15px] pb-5 m-3 rounded-md rounded-br-none min-w-[70px] "
               >
-                <p id=${value.id} class="text-[18px] message_for_green ">
+                <p id=${value.id} class="text-[18px]  message_for_green">
                ${value?.message}
                 </p>
                 <p
@@ -212,6 +211,13 @@ function contactsfuncForMe(data) {
     }
   });
 }
+yourAvatar.addEventListener("click", (e) => {
+  fetch("https://678944a52c874e66b7d8381f.mockapi.io/contact")
+    .then((data) => data.json())
+    .then((data) => {
+      console.log(data);
+    });
+});
 
 // that three listener for profile changing
 setting.addEventListener("click", (e) => {
@@ -258,17 +264,18 @@ back.addEventListener("click", () => {
 //delete function delete from api
 messages.addEventListener("dblclick", (e) => {
   if (e.target.classList.contains("message_for_green")) {
-    if (confirm("siz shu messageni ochirmoq chimisiz")) {
-      fetch(`${BASE_URL}/${e.target.id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((data) => data.json())
-        .then(() => window.location.reload());
-    }
+    console.log(e.target.id);
+
+    // if (confirm("siz shu messageni ochirmoq chimisiz")) {
+    //   fetch(`${BASE_URL}/${e.target.id}`, {
+    //     method: "DELETE",
+    //     headers: { "Content-Type": "application/json" },
+    //   })
+    //     .then((data) => data.json())
+    //     .then(() => window.location.reload());
+    // }
   }
 });
-
 
 //add your contact
 let contactes = document.querySelector(".contactes");
@@ -281,8 +288,7 @@ backpage.addEventListener("click", () => {
 });
 
 //////////////// add member/////////////////
-let AddContactForm = document.querySelector(".AddContactForm");
-let AddContactInput = document.querySelector("#contactPhoneNum");
+
 AddContactForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -292,34 +298,35 @@ AddContactForm.addEventListener("submit", (e) => {
       // contactsfuncForMe(data);
       // contactsfuncForYour(data, AddContactInput.value);
       {
-        if (user.phone === AddContactInput.value) {
-          return alert("siz ozizni qoshdingiz");
-        }
-        let findData = data.find(
-          (value) => value.phone === AddContactInput.value
-        );
-        if (!findData) {
-          return alert("bunday nomer yoq");
-        }
-        let newData = { ...user, contact: [...user.contact, findData] };
-        fetch(
-          `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newData),
-          }
-        )
-          .then((data) => data.json())
-          .then((data) => {
-            showContact(data.contact);
-            localStorage.setItem("user", JSON.stringify(data));
-            contactes.style.display = "none";
-          });
+        contactsfunc(data);
       }
     });
 });
+function contactsfunc(data) {
+  if (user.phone === AddContactInput.value) {
+    return alert("siz ozizni qoshdingiz");
+  }
+  let findData = data.find((value) => value.phone === AddContactInput.value);
+  if (!findData) {
+    return alert("bunday nomer yoq");
+  }
 
+  let newData = { ...user, contact: [...user.contact, findData] };
+  fetch(
+    `https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api/${userid}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    }
+  )
+    .then((data) => data.json())
+    .then((data) => {
+      showContact(data.contact);
+      localStorage.setItem("user", JSON.stringify(data));
+      contactes.style.display = "none";
+    });
+}
 
 ////////contact add to ui or html
 fetch(
@@ -330,7 +337,7 @@ fetch(
     showContact(data.contact);
   });
 function showContact(data) {
-//  if (data != []) {
+  //  if (data != []) {
   data.forEach((value) => {
     let contact = document.createElement("div");
     contact.classList.add("con");
@@ -349,9 +356,10 @@ function showContact(data) {
             `;
     contacts.append(contact);
   });
-//  }
+  //  }
 }
 
+// search //
 let search_parent = document.querySelector("#search_parent");
 search_parent.addEventListener("keyup", (e) => {
   e.preventDefault();
@@ -360,9 +368,6 @@ search_parent.addEventListener("keyup", (e) => {
   fetch("https://67828199c51d092c3dcfc05f.mockapi.io/telegram/users_api")
     .then((data) => data.json())
     .then((data) => {
-      // data.forEach((value) => {
-      //   value.name.includes(searchInput);
-      // });
       contacts.innerHTML = "";
       data.forEach((value) => {
         if (value.name.includes(searchInput)) {
@@ -383,10 +388,32 @@ search_parent.addEventListener("keyup", (e) => {
           `;
           contacts.append(contact);
         } else {
-          window.location.reload();
+          // window.location.reload();
         }
       });
     });
+});
+
+// edit //
+let editbtn = document.querySelector(".editbtn");
+messages.addEventListener("click", (e) => {
+  editbtn.style.display = "block";
+
+  editbtn.addEventListener("click", (j) => {
+    let textValue = e.target.innerHTML.trim();
+    if (confirm("siz shu messageni edit chimisiz")) {
+      fetch(`${BASE_URL}/${e.target.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: prompt("edit", textValue),
+          time: "edited " + hour + ":" + minute,
+        }),
+      })
+        .then((data) => data.json())
+        .then((data) => window.location.reload());
+    }
+  });
 });
 
 fetchfunc();

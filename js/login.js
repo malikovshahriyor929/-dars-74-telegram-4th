@@ -16,6 +16,13 @@ form.addEventListener("submit", (e) => {
         localStorage.setItem("name", JSON.stringify(value.name));
         localStorage.setItem("userid", JSON.stringify(value.id));
         localStorage.setItem("user",JSON.stringify(value))
+        fetch("https://678944a52c874e66b7d8381f.mockapi.io/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userid: value.id,
+          }),
+        });
         window.location.href = "../index.html";
       }
     });

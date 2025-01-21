@@ -10,6 +10,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   </head>
   <body>
     <main class="flex flex-row h-full">
@@ -28,7 +30,8 @@
                 class="flex search_parent items-center gap-2 border-2 rounded-full p-2.5 py-1"
               >
                 <i class="fa-solid fa-magnifying-glass text-white"></i>
-                <input id="search"
+                <input
+                  id="search"
                   class="search text-white outline-none w-28 bg-transparent placeholder-white"
                   type="text"
                   placeholder="Search..."
@@ -76,6 +79,11 @@
               </div>
             </div>
             <div class="flex gap-2 items-center">
+              <button
+                class="bg-primary p-2 text-white rounded-lg px-4 editbtn hidden"
+              >
+                edit
+              </button>
               <img class="pt-1" src="./assets/svg/search.svg" alt="" />
               <img src="./assets/svg/Dots Icon.svg" alt="" />
             </div>
@@ -105,8 +113,12 @@
           </div>
         </div>
       </div>
-      <div class="absolute top-0 left-0 hidden flex-col items-center justify-center h-full w-full bg-[#00000091] contactes">
-        <form class="flex flex-col gap-5 rounded-lg p-10 bg-primary2 relative pt-12 AddContactForm">
+      <div
+        class="absolute top-0 left-0 hidden flex-col items-center justify-center h-full w-full bg-[#00000091] contactes"
+      >
+        <form
+          class="flex flex-col gap-5 rounded-lg p-10 bg-primary2 relative pt-12 AddContactForm"
+        >
           <label class="absolute top-6 left-4 backpage">
             <img src="./assets/svg/backtopage.svg" alt="" />
           </label>
@@ -114,10 +126,15 @@
           <input
             type="text"
             id="contactPhoneNum"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  "
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             required=""
           />
-          <button type="submit" class="w-full text-[20px] text-white bg-primary-600 hover:bg-primary-700 outline-none font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 bg-primary">Add to contact</button>
+          <button
+            type="submit"
+            class="w-full text-[20px] text-white bg-primary-600 hover:bg-primary-700 outline-none font-medium rounded-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 bg-primary"
+          >
+            Add to contact
+          </button>
         </form>
       </div>
 
@@ -146,6 +163,20 @@
                     >phone</a
                   >
                 </div>
+                <!-- swiper -->
+                <!-- <div class="relative  ">
+                <div class="swiper2 mySwiper2 grid relative ">
+                    <div class="swiper-wrapper grid relative w-[100px]">
+                      <div style="width: 10% !important;" class="swiper-slide">Slide 1</div>
+                      <div style="width: 30% !important;" class="swiper-slide">Slide 2</div>
+              
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                  </div>
+                
+                </div> -->
               </div>
               <form
                 class="inputs_for_profile hidden flex-col gap-2 fixed backdrop-blur-[10px] h-full w-full items-center justify-center"
@@ -220,5 +251,18 @@
       </div>
     </main>
     <script type="module" src="./js/main.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper2", {
+        pagination: {
+          el: ".swiper-pagination",
+          type: "progressbar",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script> -->
   </body>
 </html>
